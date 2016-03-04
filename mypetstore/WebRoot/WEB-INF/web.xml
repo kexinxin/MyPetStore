@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>mypetstore</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>UsernameIsExistServlet</servlet-name>
+		<servlet-class>org.csu.mypetstore.ajax.UsernameIsExistServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>SelectServlet</servlet-name>
+		<servlet-class>org.csu.mypetstore.ajax.SelectServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>AutoServlet</servlet-name>
+		<servlet-class>org.csu.mypetstore.ajax.AutoServlet</servlet-class>
+	</servlet>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<servlet-name>Tip</servlet-name>
+		<servlet-class>org.csu.mypetstore.ajax.Tip</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Tip</servlet-name>
+		<url-pattern>/tip.servlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SelectServlet</servlet-name>
+		<url-pattern>/select.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AutoServlet</servlet-name>
+		<url-pattern>/auto.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UsernameIsExistServlet</servlet-name>
+		<url-pattern>/usernameIsExist.servlet</url-pattern>
+	</servlet-mapping>
+
+</web-app>

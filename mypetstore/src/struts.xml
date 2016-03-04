@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<package name="demo" extends="struts-default">
+
+
+
+		<result-types>
+			<result-type name="validationCodeResult" class="web.result.ValidationCodeResult"></result-type>
+		</result-types>
+
+
+		<interceptors>
+
+			<interceptor name="logger" class="web.interceptor.LogInterceptor" />
+			<interceptor name="logout" class="web.interceptor.LogOutInterceptor" />
+			<interceptor name="pay" class="web.interceptor.PayInterceptor" />
+			<interceptor-stack name="myInterceptor">
+
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+
+				<interceptor-ref name="logger"></interceptor-ref>
+
+			</interceptor-stack>
+			<interceptor-stack name="LogOutInterceptor">
+
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+
+				<interceptor-ref name="logout"></interceptor-ref>
+
+			</interceptor-stack>
+			<interceptor-stack name="PayInterceptor">
+
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+
+				<interceptor-ref name="pay"></interceptor-ref>
+
+			</interceptor-stack>
+
+		</interceptors>
+
+
+
+
+
+		<action name="validationCode" class="ValidationCodeAction">
+			<result name="success" type="validationCodeResult"></result>
+		</action>
+
+
+		<action name="main" class="AccountAction" method="main">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+		</action>
+
+		<action name="log" class="AccountAction" method="log">
+			<result name="success">/WEB-INF/jsp/account/Log.jsp</result>
+		</action>
+
+		<action name="Entermain" class="AccountAction">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+		</action>
+
+		<action name="viewCategory" class="CategoryAction">
+			<result name="success">/WEB-INF/jsp/catalog/Category.jsp</result>
+		</action>
+
+		<action name="viewProduct" class="CategoryAction" method="viewProduct">
+			<result name="success">/WEB-INF/jsp/catalog/Product.jsp</result>
+		</action>
+		<action name="viewItem" class="CategoryAction" method="viewItem">
+			<result name="success">/WEB-INF/jsp/catalog/Item.jsp</result>
+		</action>
+
+		<action name="searchProduct" class="CategoryAction" method="searchProduct">
+			<result name="success">/WEB-INF/jsp/catalog/SearchProducts.jsp</result>
+		</action>
+		<action name="viewCart" class="CartAction">
+			<result name="success">/WEB-INF/jsp/cart/Cart.jsp</result>
+		</action>
+
+		<action name="addItemToCart" class="CartAction" method="addItemToCart">
+			<result name="success">/WEB-INF/jsp/cart/Cart.jsp</result>
+		</action>
+
+		<action name="removeItemFromCart" class="CartAction" method="removeItemFromCart">
+			<result name="success">/WEB-INF/jsp/cart/Cart.jsp</result>
+		</action>
+
+
+		<action name="updateCartQuantities" class="CartAction"
+			method="updateCartQuantities">
+			<result name="success">/WEB-INF/jsp/cart/Cart.jsp</result>
+		</action>
+
+		<action name="signonForm" class="AccountAction" method="signonForm">
+			<result name="success">/WEB-INF/jsp/account/SignonForm.jsp</result>
+		</action>
+
+		<action name="login" class="AccountAction" method="login">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+			<result name="input">/WEB-INF/jsp/account/SignonForm.jsp</result>
+			<interceptor-ref name="myInterceptor" />
+		</action>
+
+		<action name="loginOut" class="AccountAction" method="loginOut">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+			<interceptor-ref name="LogOutInterceptor" />
+		</action>
+
+		<action name="viewAccount" class="AccountAction" method="viewAccount">
+			<result name="success">/WEB-INF/jsp/account/EditAccountForm.jsp</result>
+		</action>
+
+
+		<action name="editAccount" class="AccountAction" method="editAccount">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+			<result name="input">/WEB-INF/jsp/account/EditAccountForm.jsp</result>
+		</action>
+
+
+		<action name="returntomain" class="AccountAction" method="returntomain">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+		</action>
+
+
+		<action name="newAccount" class="AccountAction" method="newAccount">
+			<result name="success">/WEB-INF/jsp/account/NewAccountForm.jsp</result>
+		</action>
+
+		<action name="add" class="AccountAction" method="add">
+			<result name="success">/WEB-INF/jsp/catalog/Main.jsp</result>
+			<result name="input">/WEB-INF/jsp/account/NewAccountForm.jsp</result>
+		</action>
+
+		<action name="viewOrders" class="OrderAction">
+			<result name="success">/WEB-INF/jsp/order/ListOrders.jsp</result>
+		</action>
+
+		<action name="viewOrder" class="OrderAction" method="viewOrder">
+			<result name="success">/WEB-INF/jsp/order/ViewOrder.jsp</result>
+		</action>
+
+
+		<action name="newOrderForm" class="OrderAction" method="newOrderForm">
+			<result name="success">/WEB-INF/jsp/order/NewOrderForm.jsp</result>
+			<result name="input">/WEB-INF/jsp/account/SignonForm.jsp</result>
+		</action>
+
+		<action name="newBillForm" class="OrderAction" method="newBillForm">
+			<result name="success">/WEB-INF/jsp/order/ConfirmOrder.jsp</result>
+			<result name="input">/WEB-INF/jsp/order/ShippingForm.jsp</result>
+			<result name="error">/WEB-INF/jsp/order/NewOrderForm.jsp</result>
+		</action>
+
+		<action name="newShippingForm" class="OrderAction" method="newShippingForm">
+			<result name="success">/WEB-INF/jsp/order/ConfirmOrder.jsp
+			</result>
+			<result name="input">/WEB-INF/jsp/order/ShippingForm.jsp</result>
+		</action>
+
+
+		<action name="confirmOrder" class="OrderAction" method="confirmOrder">
+			<result name="success">/WEB-INF/jsp/order/ViewOrder.jsp</result>
+			<interceptor-ref name="PayInterceptor" />
+		</action>
+
+
+	</package>
+
+
+</struts>
